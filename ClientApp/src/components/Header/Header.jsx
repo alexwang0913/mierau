@@ -107,10 +107,10 @@ class Header extends React.Component{
         this.refs.sidebarToggle.classList.toggle('toggled');
 
         // close chat bar if open on smaller screens
-        if(window.innerWidth < 993){
-            document.documentElement.classList.remove('nav-toggle-chat');
-            this.refs.chatToggle.classList.remove('toggled');
-        }
+        // if(window.innerWidth < 993){
+        //     document.documentElement.classList.remove('nav-toggle-chat');
+        //     this.refs.chatToggle.classList.remove('toggled');
+        // }
     }
     openChat(){
         document.documentElement.classList.toggle('nav-toggle-chat');
@@ -158,11 +158,11 @@ class Header extends React.Component{
                     "navbar-absolute fixed-top":"navbar-absolute fixed-top " + (this.state.color === "transparent" ? "navbar-transparent ":"navbar-"+this.state.color)}>
                 <Container fluid>
                 <div className="logo">
-                    <a href="/" className="simple-text logo-mini">
+                    {/* <a href="/" className="simple-text logo-mini">
                         <div className="logo-img">
                             <img src={logomini} alt="react-logo" />
                         </div>
-                    </a>
+                    </a> */}
                     <a href="/" className="logo-full">
                             <img src={logofull} alt="react-logo" style={{background: "white"}} />
                     </a>

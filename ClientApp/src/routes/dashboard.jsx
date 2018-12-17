@@ -105,7 +105,7 @@ import MasonryGallery from 'views/Gallery/Masonry.jsx';
 
 import FileDropzone from 'views/FileUploader/Dropzone.jsx';
 
-
+import Setup from 'views/Setup/Setup.jsx';
 
 var dashRoutes = [
 
@@ -117,7 +117,7 @@ var dashRoutes = [
     { path: "/login", name: "Reporting", icon: "sliders", component: Login },
     { path: "/#", name: "Project Info", icon: "info-circle", component: Dashboard },
     { path: "/#", name: "Admin", icon: "user", component: Dashboard },
-    { path: "/#", name: "Setup", icon: "cog", component: Dashboard },
+    { path: "/setup", name: "Setup", icon: "cog", component: Setup },
     { path: "/#", name: "Logout", icon: "sign-out", component: Dashboard },
 
 

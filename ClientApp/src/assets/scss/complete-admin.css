@@ -2531,25 +2531,46 @@ a:hover, a:focus {
   -webkit-border-radius: 50%;
   display: inline-block; }
 
-.profile-status.available, .uprofile-status.available {
+.profile-status.available,
+.uprofile-status.available {
   background-color: #4CAF50; }
 
-.profile-status.busy, .uprofile-status.busy {
+.profile-status.busy,
+.uprofile-status.busy {
   background-color: #f44336; }
 
-.profile-status.idle, .uprofile-status.idle {
+.profile-status.idle,
+.uprofile-status.idle {
   background-color: #E91E63; }
 
-.profile-status.away, .uprofile-status.away {
+.profile-status.away,
+.uprofile-status.away {
   background-color: #FFC107; }
 
-.profile-status.offline, .uprofile-status.offline {
+.profile-status.offline,
+.uprofile-status.offline {
   background-color: #9e9e9e; }
 
 .sidebar .nav p {
   color: white; }
 
 .sidebar .nav i {
+  color: white; }
+
+.sidebar .nav li.active:not([data-toggle="collapse"]) > a,
+.sidebar .nav li:hover:not(.active) > a,
+.sidebar .nav li:focus:not(.active) > a {
+  background-color: #3c4ca6; }
+
+.sidebar .nav li.active {
+  width: 200px; }
+
+.sidebar,
+.off-canvas-sidebar,
+.sidebar .sidebar-wrapper {
+  width: 200px; }
+
+.sidebar[data-color="primary"] .nav li.active > a:not([data-toggle="collapse"]) i {
   color: white; }
 
 /*---------------------------------------------
@@ -4258,7 +4279,6 @@ section header .title {
   line-height: 30px;
   color: #676767;
   font-weight: 400;
-  text-transform: uppercase;
   display: inline-block; }
 
 section .content-body {

@@ -12,7 +12,7 @@ class Footer extends React.Component{
                 <Container fluid={this.props.fluid ? true:false}>
                     
                     <div className="copyright">
-                        &copy; {1900 + (new Date()).getYear()}, <a href="https://wrapbootstrap.com/user/themebuilder" target="_blank" rel="noopener noreferrer">Complete Admin - ReactJs version</a>
+                        {/* &copy; {1900 + (new Date()).getYear()}, <a href="https://wrapbootstrap.com/user/themebuilder" target="_blank" rel="noopener noreferrer">Mierau Contractors</a> */}
                     </div>
                 </Container>
             </footer>
