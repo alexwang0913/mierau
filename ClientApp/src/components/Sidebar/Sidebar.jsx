@@ -70,20 +70,6 @@ class Sidebar extends React.Component{
             <div className="sidebar menubar" data-color="primary">
                 
                 <div className="sidebar-wrapper" ref="sidebar">
-                {/* <div className="profile-info row">
-                    <div className="profile-image col-4">
-                        <a href="#!">
-                            <img alt="" src={useravatar} className="img-fluid rounded-circle"/>
-                        </a>
-                    </div>
-                    <div className="profile-details col-8">
-                        <h3>
-                            <a href="#!">Shane Taylor</a>
-                            <span className="profile-status online"></span>
-                        </h3>
-                        <p className="profile-title">Web Developer</p>
-                    </div>
-                </div> */}
 
                     <Nav className="navigation">
                         {
@@ -129,19 +115,6 @@ class Sidebar extends React.Component{
                             })
                         }
                     </Nav>
-                    <div class="menustats">    
-                    
-                    {/* <h5>Project Progress</h5> */}
-                    {/* <div class="progress">
-                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style={{width: 50+'%'}}>
-                            </div>
-                        </div> */}
-                    {/* <h5>Target Achieved</h5>
-                    <div class="progress">
-                                <div class="progress-bar progress-bar-accent" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={{width: 70+'%'}}>
-                            </div>
-                        </div> */}
-                    </div>
                 </div>
             </div>
         );

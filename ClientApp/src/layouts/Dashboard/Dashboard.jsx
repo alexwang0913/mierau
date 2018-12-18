@@ -14,12 +14,7 @@ import dashboardRoutes from 'routes/dashboard.jsx';
 //var ps;
 
 class Dashboard extends React.Component{
-    constructor() {
-        super();
-      }
-    
     componentDidMount(){
-
         /*if(navigator.platform.indexOf('Win') > -1){
             ps = new PerfectScrollbar(this.refs.mainPanel);
             document.body.classList.toggle("perfect-scrollbar-on");
@@ -65,7 +60,6 @@ class Dashboard extends React.Component{
                     </Switch>
                     <Footer fluid/>
                 </div>
-                <ChatSidebar {...this.props} routes={dashboardRoutes}/>
             </div>
         );
     }

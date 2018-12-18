@@ -1,111 +1,75 @@
+
 /*----------------------------------------
   Sidebar Main Menu
 ------------------------------------------*/
 
-.sidebar .menustats {
-  padding: 15px 15px 15px 20px;
+.sidebar .menustats{
+    padding: 15px 15px 15px 20px;
 }
 
-.sidebar .menustats h5 {
-  font-size: 13px;
+.sidebar .menustats h5{
+    font-size: 13px;
 }
 
-.sidebar .menustats .progress {
-  height: 5px;
-  background-color: #eeeeee;
-  margin-bottom: 25px;
+.sidebar .menustats .progress{
+    height: 5px;
+    background-color: #eeeeee;
+    margin-bottom: 25px;
 }
 
 /*----------------------------------------
   Sidebar User Profile
---------------------------------------- ---*/
+------------------------------------------*/
 
 .profile-info .profile-image img {
-  height: 65px;
-  width: 65px;
-  float: right;
-  top: 5px;
-  left: 5px;
-  position: relative;
-  background-color: #777777;
+    height: 65px;
+    width: 65px;
+    float: right;
+    top: 5px;
+    left: 5px;
+    position: relative;
+    background-color: #777777;
 }
-.profile-info .profile-details {
-  white-space: nowrap;
+.profile-info .profile-details{
+    white-space: nowrap;
 }
 .profile-info .profile-details h3 {
-  margin: 10px 0 5px 0;
+    margin: 10px 0 5px 0;
 }
 .profile-info .profile-details h3 a {
-  font-family: $menu-family;
-  font-weight: 400;
-  color: #757575;
-  font-size: 19px;
-  line-height: 23px;
-  text-decoration: none;
+    font-family: $menu-family;
+    font-weight: 400;
+    color: #757575;
+    font-size: 19px;
+    line-height: 23px;
+    text-decoration: none;
 }
 .profile-info .profile-details .profile-title {
-  color: rgba(174, 178, 183, 1);
-  font-size: 13px;
+    color: rgba(174, 178, 183, 1.0);
+    font-size: 13px;
 }
 .profile-info .profile-details .profile-status {
-  height: 8px;
-  width: 8px;
-  border-radius: 50%;
-  -o-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  display: inline-block;
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    -o-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    display: inline-block;
 }
-.profile-status.available,
-.uprofile-status.available {
-  background-color: $success-color;
+.profile-status.available, .uprofile-status.available {
+    background-color: $success-color;
 }
-.profile-status.busy,
-.uprofile-status.busy {
-  background-color: $danger-color;
+.profile-status.busy, .uprofile-status.busy {
+    background-color: $danger-color;
 }
-.profile-status.idle,
-.uprofile-status.idle {
-  background-color: $accent-color;
+.profile-status.idle, .uprofile-status.idle {
+    background-color: $accent-color;
 }
-.profile-status.away,
-.uprofile-status.away {
-  background-color: $warning-color;
+.profile-status.away, .uprofile-status.away {
+    background-color: $warning-color;
 }
-.profile-status.offline,
-.uprofile-status.offline {
-  background-color: #9e9e9e;
-}
-
-.sidebar .nav p {
-  color: white;
-}
-
-.sidebar .nav i {
-  color: white;
-}
-
-.sidebar .nav li.active:not([data-toggle="collapse"]) > a,
-.sidebar .nav li:hover:not(.active) > a,
-.sidebar .nav li:focus:not(.active) > a {
-  background-color: #3c4ca6;
-}
-
-.sidebar .nav li.active {
-  width: 200px;
-}
-
-.sidebar,
-.off-canvas-sidebar,
-.sidebar .sidebar-wrapper {
-  width: 200px;
-}
-
-.sidebar[data-color="primary"]
-  .nav
-  li.active
-  > a:not([data-toggle="collapse"])
-  i {
-  color: white;
+.profile-status.offline, .uprofile-status.offline {
+    background-color: #9e9e9e;
 }

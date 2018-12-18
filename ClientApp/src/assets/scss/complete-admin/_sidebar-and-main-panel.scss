@@ -130,7 +130,7 @@
             > a{
                 margin: 0px 0px 0;
                 border-radius: 0px;
-                color: $black-color;
+                color: $white-color;
                 display: block;
                 text-decoration: none;
                 position: relative;
@@ -149,13 +149,13 @@
             li a.nav-link.active,
             &:hover:not(.active) > a,
             &:focus:not(.active) > a{
-                background-color: $light-gray;
+                background-color: #3c4ca6;
                 border-left-color: $primary-color;
             }
 
             &:hover:not(.active) > a i,
             &:focus:not(.active) > a i{
-                color: $black-color;
+                color: #3c4ca6;
             }
 
             /* &.active > a{
@@ -165,7 +165,8 @@
 
 
             &.active:not([data-toggle="collapse"]) > a{
-                background-color: $light-gray;
+              color:white !important;
+                background-color: #3c4ca6;
                 border-left-color: $primary-color;
                 /*box-shadow: $box-shadow; */
             }
@@ -173,10 +174,10 @@
             /* &.active > a[data-toggle="collapse"]{
               background-color: $light-gray;
               box-shadow: none;
-              color: $black-color;
+              color: $white-color;
             
               i{
-                color: $black-color;
+                color: $white-color;
               }
             
               & + div .nav .active a{
@@ -186,7 +187,7 @@
                   background-color: $light-gray;
                   border-radius: 30px;
                   box-shadow: $box-shadow;
-                  color: $black-color;
+                  color: $white-color;
                   height: 42px;
                   width: calc(100% - 5px);
                   top: 0;
@@ -215,7 +216,7 @@
             width: 45px;
             height: $line-height-nav-link;
             text-align: center;
-            color: $black-color;
+            color: $white-color !important;
             position: relative;
         }
     }
@@ -380,7 +381,7 @@
     .nav {
         > li > a,
         > li > a:hover{
-            color: $white-color;
+            color: $primary-color;
         }
 
         > li > a:focus{
@@ -433,7 +434,7 @@
 }
 
 
-@media (min-width: 700px) {
+@media (min-width: 991px) {
     .sidebar,
     .main-panel,
     .sidebar-wrapper{
@@ -453,7 +454,7 @@
   padding-top: 80px;
   padding-bottom: 45px;
   position: relative;
-  @include panel-gradient($black-color);
+  @include panel-gradient($white-color);
 
   .header{
     .title{
@@ -540,7 +541,7 @@
         z-index: 1;
       }
       .menubar .sidebar-wrapper .nav li:hover a{
-        background: #ffffff;
+        background: #3f51b5;
             box-shadow: 0 0 20px 0 rgba(33,33,33,.2);
             -webkit-box-shadow: 0 0 20px 0 rgba(33,33,33,.2);
             -moz-box-shadow: 0 0 20px 0 rgba(33,33,33,.2);
@@ -548,7 +549,7 @@
             -ms-box-shadow: 0 0 20px 0 rgba(33,33,33,.2);
       }
       .menubar .sidebar-wrapper .nav li:hover ul a{
-            background: #ffffff;
+            background: #3f51b5;
             box-shadow: none;
             -webkit-box-shadow: none;
             -moz-box-shadow: none;
@@ -642,22 +643,22 @@
   .chat-search{
     padding: 15px 25px 0 25px;
     input, input:focus{
-      color: $black-color;
+      color: $white-color;
       border: none;
       background: $light-gray;
       border-radius: 0px;
 
       &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-        color: $dark-gray;
+        color: $white-color;
       }
       &::-moz-placeholder { /* Firefox 19+ */
-        color: $dark-gray;
+        color: $white-color;
       }
       &:-ms-input-placeholder { /* IE 10+ */
-        color: $dark-gray;
+        color: $white-color;
       }
       &:-moz-placeholder { /* Firefox 18- */
-        color: $dark-gray;
+        color: $white-color;
       }
     }
   }
@@ -670,11 +671,11 @@
   }
   .list-group-item:hover {
     cursor: pointer;
-    background-color: $light-gray;
+    background-color: #3c4ca6;
   }
   .group-head{
     font-size: $font-size-base;
-    color: $dark-gray;
+    color: $white-color;
     padding-left: 30px;
   }
 
@@ -689,7 +690,7 @@
         background-color: $warning-color;
     }
     [data-status=offline]{
-        background-color: $dark-gray;
+        background-color: $white-color;
     }
   .profile-status{
       border-radius: 50%;

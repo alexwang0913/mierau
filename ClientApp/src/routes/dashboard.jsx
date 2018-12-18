@@ -106,22 +106,24 @@ import MasonryGallery from 'views/Gallery/Masonry.jsx';
 import FileDropzone from 'views/FileUploader/Dropzone.jsx';
 
 import Setup from 'views/Setup/Setup.jsx';
+import CompanyDetail from 'views/Setup/CompanyDetail.jsx';
 
 var dashRoutes = [
 
     { path: "#", name: "Main", type: "navgroup"},
-    { path: "/home", name: "Home", icon: "th-large", component: Dashboard },
+    { path: "/dashboard", name: "Home", icon: "th-large", component: Dashboard },
     { path: "/#", name: "Sub-Contractors", icon: "users", component: Dashboard },
     { path: "/#", name: "RFC", icon: "dashboard", component: Dashboard },
     { path: "/#", name: "Trades", icon: "exchange", component: Dashboard },
-    { path: "/login", name: "Reporting", icon: "sliders", component: Login },
+    { path: "/#", name: "Reporting", icon: "sliders", component: Dashboard },
     { path: "/#", name: "Project Info", icon: "info-circle", component: Dashboard },
-    { path: "/#", name: "Admin", icon: "user", component: Dashboard },
+    { path: "/#", name: "Admin", icon: "user", component: Login },
     { path: "/setup", name: "Setup", icon: "cog", component: Setup },
-    { path: "/#", name: "Logout", icon: "sign-out", component: Dashboard },
+    { path: "/login", name: "Logout", icon: "sign-out", component: Login },
 
-
-    { redirect: true, path: "/", pathTo: "/login", name: "Dashboard" }
+    { path: "/companyDetail", name: "Company Detail", type: "child", component: CompanyDetail },
+    // { redirect: true, path: "/", pathTo: "/dashboard", name: "Dashboard" }
+    { redirect: true, path: "/", pathTo: "/login", name: "Login" }
 
 ];
 export default dashRoutes;

@@ -18,7 +18,7 @@ import { notifications } from 'variables/topbar.jsx';
 //import messages from 'variables/topbar';
 //import notifications from 'variables/topbar';
 
-import logofull from "assets/img/mierau_logo.png";
+import logofull from "assets/img/logo-full.png";
 import logomini from "assets/img/logo-mini.png";
 import useravatar from "assets/img/profile.jpg";
 
@@ -107,10 +107,10 @@ class Header extends React.Component{
         this.refs.sidebarToggle.classList.toggle('toggled');
 
         // close chat bar if open on smaller screens
-        // if(window.innerWidth < 993){
-        //     document.documentElement.classList.remove('nav-toggle-chat');
-        //     this.refs.chatToggle.classList.remove('toggled');
-        // }
+        if(window.innerWidth < 993){
+            // document.documentElement.classList.remove('nav-toggle-chat');
+            // this.refs.chatToggle.classList.remove('toggled');
+        }
     }
     openChat(){
         document.documentElement.classList.toggle('nav-toggle-chat');
@@ -118,8 +118,8 @@ class Header extends React.Component{
 
         // close menu bar if open on smaller screens
         if(window.innerWidth < 993){
-            document.documentElement.classList.remove('nav-toggle');
-            this.refs.sidebarToggle.classList.remove('toggled');
+            // document.documentElement.classList.remove('nav-toggle');
+            // this.refs.sidebarToggle.classList.remove('toggled');
         }
     }
     // function that adds color white/transparent to the navbar on resize (this is for the collapse)
@@ -158,11 +158,6 @@ class Header extends React.Component{
                     "navbar-absolute fixed-top":"navbar-absolute fixed-top " + (this.state.color === "transparent" ? "navbar-transparent ":"navbar-"+this.state.color)}>
                 <Container fluid>
                 <div className="logo">
-                    {/* <a href="/" className="simple-text logo-mini">
-                        <div className="logo-img">
-                            <img src={logomini} alt="react-logo" />
-                        </div>
-                    </a> */}
                     <a href="/" className="logo-full">
                             <img src={logofull} alt="react-logo" style={{background: "white"}} />
                     </a>
@@ -173,30 +168,6 @@ class Header extends React.Component{
                                 <i className="fa fa-bars"></i>
                             </button>
                         </div>
-
-
-                            {/* <Dropdown nav isOpen={this.state.messagesddOpen} toggle={(e) => this.messagesddToggle(e)} className="navbardd">
-                                <DropdownToggle caret nav>
-                                    <i className="fa fa-envelope"></i>
-                                    <span className="badge badge-pill badge-accent">3</span>
-                                </DropdownToggle>
-                                <Messages messages={messages}/>
-                            </Dropdown>
-
-                            <Dropdown nav isOpen={this.state.notificationsddOpen} toggle={(e) => this.notificationsddToggle(e)} className="navbardd">
-                                <DropdownToggle caret nav>
-                                    <i className="fa fa-bell"></i>
-                                    <span className="badge badge-pill badge-accent">7</span>
-                                </DropdownToggle>
-                                <Notifications notifications={notifications}/>
-                            </Dropdown>
-    
-                            <form className="topbar-search-form">
-                                <InputGroup className={"topbar-search "+(this.state.searchOpen === true ? "open":"")}>
-                                    <InputGroupAddon  onClick={() => this.searchToggle()}><i className="fa fa-search"></i></InputGroupAddon>
-                                    <Input placeholder="Search..." />
-                                </InputGroup>
-                            </form> */}
 
 
                         <NavbarBrand href="/">{this.getBrand()}</NavbarBrand>
@@ -212,20 +183,12 @@ class Header extends React.Component{
                                    <img src={useravatar} alt="react-logo" className="rounded-circle" /> <span>Budhi Kapoor</span>
                                 </DropdownToggle>
                                 <DropdownMenu right>
-                                    {/* <DropdownItem tag="a"><i className="fa fa-wrench" href="#!"></i> Settings</DropdownItem> */}
+                                    <DropdownItem tag="a"><i className="fa fa-wrench" href="#!"></i> Settings</DropdownItem>
                                     <DropdownItem tag="a"><i className="fa fa-user" href="#!"></i> Profile</DropdownItem>
-                                    {/* <DropdownItem tag="a"><i className="fa fa-info" href="#!"></i> Help</DropdownItem> */}
+                                    <DropdownItem tag="a"><i className="fa fa-info" href="#!"></i> Help</DropdownItem>
                                     <DropdownItem tag="a" className="" href="#!"><i className="fa fa-lock"></i> Logout</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
-                            {/* <NavItem>
-                                <div className="navbar-toggle chat-toggle">
-                                    <button type="button" ref="chatToggle" className="navbar-toggler" onClick={() => this.openChat()}>
-                                            <i className="fa fa-comments"></i>
-                                            <span className="badge badge-pill badge-accent">9</span>
-                                    </button>
-                                </div>
-                            </NavItem> */}
                         </Nav>
                     </Collapse>
                 </Container>
