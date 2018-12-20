@@ -6,7 +6,32 @@ import {} from "components";
 import logo from "assets/img/mierau_logo.png";
 
 class Login extends React.Component {
-  onClickLogin() {}
+  constructor() {
+    super();
+    this.state = {
+      userName: "",
+      password: ""
+    }
+    this.onClickLogin = this.onClickLogin.bind(this);
+  }
+  updateState(name, e) {
+    this.setState({ [name]: e.target.value });
+  }
+  onClickLogin(event) {
+    let data = {
+      userName: this.state.userName,
+      password: this.state.password
+    }
+
+
+    fetch('api/User/Login', {
+      method: 'POST',
+      body: data
+    })
+    .then(response => {
+      console.log(response);
+    })
+  }
   render() {
     return (
       <div>
@@ -24,6 +49,11 @@ class Login extends React.Component {
                         {/* <a href="#!" title="Login Page" tabIndex="-1" /> */}
                         <img src={logo} />
                       </h1>
+                    </center>
+                    <center>
+                      <i style={{color: "blue", fontSize: "15px"}}>
+                        "construction excellence through working together"
+                      </i>
                     </center>
 
                     <form
@@ -43,6 +73,8 @@ class Login extends React.Component {
                             className="input"
                             value="demo"
                             size="20"
+                            value={this.state.userName}
+                            onChange={e => this.updateState("userName", e)}
                           />
                         </label>
                       </p>
@@ -57,6 +89,8 @@ class Login extends React.Component {
                             className="input"
                             value="demo"
                             size="20"
+                            value={this.state.password}
+                              onChange={e => this.updateState("password", e)}
                           />
                         </label>
                       </p>
@@ -82,7 +116,6 @@ class Login extends React.Component {
                         <a
                           id="wp-submit"
                           className="btn btn-accent btn-block"
-                          href="/dashboard"
                           onClick={this.onClickLogin}
                         >
                           Sign In

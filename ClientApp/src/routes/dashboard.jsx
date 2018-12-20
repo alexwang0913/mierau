@@ -121,7 +121,7 @@ var dashRoutes = [
     { path: "/setup", name: "Setup", icon: "cog", component: Setup },
     { path: "/login", name: "Logout", icon: "sign-out", component: Login },
 
-    { path: "/companyDetail", name: "Company Detail", type: "child", component: CompanyDetail },
+    { path: "/setup-companyDetail", name: "Company Detail", type: "child", component: CompanyDetail },
     // { redirect: true, path: "/", pathTo: "/dashboard", name: "Dashboard" }
     { redirect: true, path: "/", pathTo: "/login", name: "Login" }
 

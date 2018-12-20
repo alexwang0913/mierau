@@ -51,15 +51,15 @@ $default-color:              #888 !default;
 $default-states-color:       lighten($default-color, 6%) !default;
 $default-color-opacity:      rgba(182, 182, 182, .6) !default;
 
-$primary-color:              #3f51b5 !default;
-$primary-states-color:       lighten($primary-color, 6%) !default;
-$primary-color-opacity:      rgba(63, 81, 181, .3) !default;
-$primary-color-alert:        rgba(63, 81, 181, .8) !default;
+    $primary-color:              #3f51b5 !default;
+    $primary-states-color:       lighten($primary-color, 6%) !default;
+    $primary-color-opacity:      rgba(63, 81, 181, .3) !default;
+    $primary-color-alert:        rgba(63, 81, 181, .8) !default;
 
-$accent-color:               #E91E63 !default;
-$accent-states-color:       lighten($accent-color, 6%) !default;
-$accent-color-opacity:      rgba(233, 30, 99, .3) !default;
-$accent-color-alert:        rgba(233, 30, 99, .8) !default;
+    $accent-color:               #E91E63 !default;
+    $accent-states-color:       lighten($accent-color, 6%) !default;
+    $accent-color-opacity:      rgba(233, 30, 99, .3) !default;
+    $accent-color-alert:        rgba(233, 30, 99, .8) !default;
 
 $success-color:              #4CAF50 !default;
 $success-states-color:       lighten($success-color, 6%) !default;
@@ -259,7 +259,7 @@ $social-linkedin: 			         #0077B5 !default;
 $social-linkedin-state-color:        darken(#0077B5, 5%) !default;
 
 // Sidebar variables
-$sidebar-width:              calc(100% - 260px) !default;
+$sidebar-width:              calc(100% - 200px) !default;
 $sidebar-mini-width:         calc(100% - 80px) !default;
 
 

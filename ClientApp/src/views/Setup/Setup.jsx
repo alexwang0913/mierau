@@ -1,6 +1,7 @@
 import { Row, Col } from "reactstrap";
 import React from "react";
 import {} from "components";
+import { NavLink } from "react-router-dom";
 
 class SetupItem extends React.Component {
   constructor(props) {
@@ -18,10 +19,10 @@ class SetupItem extends React.Component {
             style={{ "margin-top": "20px", textAlign: "right" }}
           />
           <div style={{ "padding-left": "20px" }} className="col-10">
-            <h6>
-              <a href={this.props.link}>
+            <h6 style={{ fontSize: "16px" }}>
+              <NavLink to={this.props.link}>
                 <strong>{this.props.title}</strong>
-              </a>
+              </NavLink>
             </h6>
             <span>{this.props.description}</span>
           </div>
@@ -46,15 +47,6 @@ class Setup extends React.Component {
 
               <div class="col-12">
                 <section class="box ">
-                  {/* <header class="panel_header">
-                    <h2 class="title float-left col-6">Company Details</h2>
-                    <h2
-                      class="title float-left col-6"
-                      style={{ "padding-left": "10px" }}
-                    >
-                      Add New User
-                    </h2>
-                  </header> */}
                   <div class="content-body">
                     <div class="row">
                       <div className="col-12 col-md-6">
@@ -75,7 +67,7 @@ class Setup extends React.Component {
                         <SetupItem
                           icon="briefcase"
                           title="Company Details"
-                          link="/companyDetail"
+                          link="/setup-companyDetail"
                           description="Manage your coporate information like Contact details,
                           System logos, time Zone and other."
                         />
@@ -87,7 +79,7 @@ class Setup extends React.Component {
                         />
                       </div>
                       <div className="col-12 col-md-6">
-                      <h2
+                        <h2
                           style={{
                             fontFamily: "Roboto, Arial, Helvetica, sans-serif",
                             fontSize: "19px",

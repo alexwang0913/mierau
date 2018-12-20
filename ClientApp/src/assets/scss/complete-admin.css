@@ -976,7 +976,7 @@ img {
   top: 0;
   height: 100%;
   bottom: 0;
-  width: 260px;
+  width: 200px;
   left: 0;
   z-index: 1031; }
   .sidebar.chatbar,
@@ -996,7 +996,7 @@ img {
     position: relative;
     height: calc(100vh - 0px);
     overflow: auto;
-    width: 260px;
+    width: 200px;
     z-index: 4;
     padding-top: 60px;
     padding-bottom: 20px; }
@@ -1345,7 +1345,7 @@ img {
 .main-panel {
   position: relative;
   float: right;
-  width: calc(100% - 260px);
+  width: calc(100% - 200px);
   background-color: #E3E3E3;
   background-color: #ebecf1;
   -webkit-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
@@ -7330,3 +7330,9 @@ body {
   min-width: 28px;
   min-height: 28px;
   margin: 0px 0 10px 0; }
+
+.company_detail span {
+  font-size: 13px; }
+
+.company_detail button {
+  font-size: 13px; }
