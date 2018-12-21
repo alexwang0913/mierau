@@ -7,15 +7,20 @@ namespace project.Models
 {
     public class Company
     {
-        public int COMPANY_ID { get; set; }
-        public String COMPANY_NAME { get; set; }
-        public int TIMEZONE_ID { set; get; }
-        public String WEBSITE { get; set; }
-        public int EMAIL_ID { get; set; }
-        public String PHONE { get; set; }
-        public int LANGUAGE_ID { get; set; }
-        public int THEME_ID {get;set;}
-        public String SYSTEM_NAME { get; set; }
-        public String SYSTEM_TITME { get; set; }
+        public int CompanyId { get; set; }
+        public String CompanyName { get; set; }
+        public int TimezoneId { set; get; }
+        public String Website { get; set; }
+        public int EmailId { get; set; }
+        public String Phone { get; set; }
+        public int LanguageId { get; set; }
+        public int ThemeId {get;set;}
+        public String SystemName { get; set; }
+        public String SystemTitle { get; set; }
+        public int CountryId { get; set; }
+
+        public String TimeZoneName { get; set; }
+        public String LanguageName { get; set; }
+        public String CountryName { get; set; }
     }
 }

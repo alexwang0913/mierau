@@ -107,6 +107,7 @@ import FileDropzone from 'views/FileUploader/Dropzone.jsx';
 
 import Setup from 'views/Setup/Setup.jsx';
 import CompanyDetail from 'views/Setup/CompanyDetail.jsx';
+import CompanyInformation from 'views/Setup/CompanyInformation.jsx';
 
 var dashRoutes = [
 
@@ -122,6 +123,7 @@ var dashRoutes = [
     { path: "/login", name: "Logout", icon: "sign-out", component: Login },
 
     { path: "/setup-companyDetail", name: "Company Detail", type: "child", component: CompanyDetail },
+    { path: "/setup-companyInformation", name: "Company Information", type: "child", component: CompanyInformation },
     // { redirect: true, path: "/", pathTo: "/dashboard", name: "Dashboard" }
     { redirect: true, path: "/", pathTo: "/login", name: "Login" }
 

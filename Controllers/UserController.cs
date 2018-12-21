@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using project.Models;
 
 namespace project.Controllers
 {
@@ -21,28 +22,35 @@ namespace project.Controllers
         }
 
         // GET: api/User/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        //[HttpGet("{id}", Name = "Get")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
         // POST: api/User
         [HttpPost]
-        [Route("api/User/Login")]
-        public bool Login(LoginInfo loginInfo)
+        public async Task<ActionResult<User>> Login(LoginInfo loginInfo)
         {
-            String commandText = "Select * From [dbo].[tblUser] Where userName=@userName And userPassword=@userPassword";
+            String commandText = "Select * From [dbo].[tblUser] Where userName=@userName And userPassword=@password";
             SqlParameter[] sqlParameters =
             {
-                new SqlParameter("@userName", loginInfo.USERE_NAME),
-                new SqlParameter("@password", loginInfo.PASSWORD)
+                new SqlParameter("@userName", loginInfo.UserName),
+                new SqlParameter("@password", loginInfo.Password)
             };
-            if (SqlHelper.ExecuteNonQuery(commandText, CommandType.Text, sqlParameters) > 0)
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(commandText, CommandType.Text, sqlParameters))
             {
-                return true;
+                if (reader.Read())
+                {
+                    User user = new User();
+                    user.Id = int.Parse(reader["userID"].ToString());
+                    user.UserName = reader["userName"].ToString();
+                    user.CompanyId = int.Parse(reader["headOfficeID"].ToString());
+
+                    return user;
+                }
             }
-            return false;
+            return null;
         }
 
         // PUT: api/User/5
@@ -56,11 +64,5 @@ namespace project.Controllers
         public void Delete(int id)
         {
         }
-    }
-
-    public class LoginInfo
-    {
-        public String USERE_NAME;
-        public String PASSWORD;
     }
 }

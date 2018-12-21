@@ -2,8 +2,10 @@ import React from "react";
 import { Row, Col } from "reactstrap";
 
 import {} from "components";
-
+import NotificationAlert from "react-notification-alert";
 import logo from "assets/img/mierau_logo.png";
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 class Login extends React.Component {
   constructor() {
@@ -11,9 +13,10 @@ class Login extends React.Component {
     this.state = {
       userName: "",
       password: ""
-    }
+    };
     this.onClickLogin = this.onClickLogin.bind(this);
   }
+
   updateState(name, e) {
     this.setState({ [name]: e.target.value });
   }
@@ -21,21 +24,43 @@ class Login extends React.Component {
     let data = {
       userName: this.state.userName,
       password: this.state.password
-    }
+    };
 
-
-    fetch('api/User/Login', {
-      method: 'POST',
-      body: data
+    const self = this;
+    fetch("api/user", {
+      method: "post",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json;"
+      }
     })
-    .then(response => {
-      console.log(response);
-    })
+      .then(response => response.json())
+      .then(data => {
+        if (data != null) {
+          window.location = "/dashboard";
+          cookies.set('user', data, { path: '/' });
+        } else {
+          var options = {};
+          options = {
+            place: "tc",
+            message: (
+              <div>
+                <div>Failed to Login.</div>
+              </div>
+            ),
+            type: "danger",
+            icon: "fa fa-warning",
+            autoDismiss: 2
+          };
+          self.refs.notificationAlert.notificationAlert(options);
+        }
+      });
   }
   render() {
     return (
       <div>
         <div className="">
+          <NotificationAlert ref="notificationAlert" />
           <Row>
             <Col xs={12} md={12}>
               <div className="container-fluid">
@@ -51,7 +76,7 @@ class Login extends React.Component {
                       </h1>
                     </center>
                     <center>
-                      <i style={{color: "blue", fontSize: "15px"}}>
+                      <i style={{ color: "blue", fontSize: "15px" }}>
                         "construction excellence through working together"
                       </i>
                     </center>
@@ -90,7 +115,7 @@ class Login extends React.Component {
                             value="demo"
                             size="20"
                             value={this.state.password}
-                              onChange={e => this.updateState("password", e)}
+                            onChange={e => this.updateState("password", e)}
                           />
                         </label>
                       </p>

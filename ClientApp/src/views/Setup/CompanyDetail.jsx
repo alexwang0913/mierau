@@ -5,6 +5,9 @@ import {} from "components";
 import logofull from "assets/img/logo-full.png";
 import { NavLink } from "react-router-dom";
 
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
+
 class ThemeItem extends React.Component {
   constructor(props) {
     super(props);
@@ -42,24 +45,23 @@ class CompanyDetail extends React.Component {
       editTaxNumber: false,
 
       // for company information
-      companyName: "Mierau Contractors Limited",
+      companyName: "",
       address1: "201 - 30444 Great Northern Ave",
       address2: "",
       city: "Abbostsford",
       province: "BC",
-      country: -1,
-      selectCountry: -1,
+      country: "",
       postalCode: "V2T 6Y6",
-      timeZone: "(GMT - 08:00) Pacific Standard Time",
+      timeZone: -1, //"(GMT - 08:00) Pacific Standard Time",
       phone: "(604) 850-3536",
       fax: "(604) 857-9790",
       tradeGroup: "Mierau Lower Mainland",
       mainContact: "Kevin Mierau",
       companyEmail: "information.abbotrsford@mierau.net",
       bidEmail: "information.abbotsford@mierau.net",
-      systemName: "Mierau Contractors",
-      systemTitle: "construction excellence through working together",
-      language: "English (united States)",
+      systemName: "",
+      systemTitle: "",
+      language: "", //"English (united States)",
       countries: [],
 
       //corporate details
@@ -84,19 +86,44 @@ class CompanyDetail extends React.Component {
       // for address
       billingAddress: "1233 12 st Unit23 Abbotsford, BC V5Y 1H4"
     };
+
+    this.updateCompanyInformation = this.updateCompanyInformation.bind(this);
+    this.cancelCompanyInformation = this.cancelCompanyInformation.bind(this);
   }
   componentDidMount() {
-    console.log("ComponentDidMount_____________________");
     const self = this;
     fetch("api/Company/GetCountries")
       .then(response => response.json())
       .then(data => {
+        self.setState({ countries: data });
         self.state.countries = data;
-        console.log(self.state.countries);
+      });
+    const companyId = cookies.get("user").companyId;
+
+    fetch("api/company/" + companyId)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        self.setState({ companyName: data.companyName });
+        self.setState({ systemName: data.systemName });
+        self.setState({ systemTitle: data.systemTitle });
+        self.setState({ country: data.countryName });
+        self.setState({ timeZone: data.timeZoneName });
+        self.setState({ language: data.languageName });
       });
   }
   updateState(name, e) {
     this.setState({ [name]: e.target.value });
+  }
+  updateCompanyInformation() {
+    this.setState({
+      editCompanyInfo: false
+    });
+  }
+  cancelCompanyInformation() {
+    this.setState({
+      editCompanyInfo: false
+    });
   }
   render() {
     return (
@@ -152,19 +179,16 @@ class CompanyDetail extends React.Component {
                         </span>
                         <div className="col-md-9 col-7">
                           {this.state.editCompanyInfo ? (
-                            // <Input
-                            //   type="text"
-                            //   value={this.state.country}
-                            //   onChange={e => this.updateState("country", e)}
-                            //                         />
                             <FormGroup>
                               <Input
                                 type="select"
                                 name="select"
                                 value={this.state.selectCountry}
-                                onChange={e => this.updateState("selectCountry", e)}
+                                onChange={e =>
+                                  this.updateState("selectCountry", e)
+                                }
                               >
-                                <option value='-1'>Select Country</option>
+                                <option value="-1">Select Country</option>
                                 {this.state.countries.map(country => {
                                   return (
                                     <option value={country.id}>
@@ -175,13 +199,7 @@ class CompanyDetail extends React.Component {
                               </Input>
                             </FormGroup>
                           ) : (
-                            <div>
-                              {this.state.countries.map(country => {
-                                if (country.id == this.state.country) {
-                                  return <span>{country.name}</span>;
-                                }
-                              })}
-                            </div>
+                             <span>{this.state.country}</span>
                           )}
                         </div>
                       </div>
@@ -297,37 +315,23 @@ class CompanyDetail extends React.Component {
                             <div>
                               <button
                                 className="btn btn-primary"
-                                onClick={() => {
-                                  this.setState({
-                                    editCompanyInfo: false
-                                  });
-                                  
-                                }}
+                                onClick={this.updateCompanyInformation}
                               >
                                 Update
                               </button>
                               <button
                                 className="btn ml-2"
-                                onClick={() => {
-                                  this.setState({
-                                    editCompanyInfo: false
-                                  });
-                                }}
+                                onClick={this.cancelCompanyInformation}
                               >
                                 Cancel
                               </button>
                             </div>
                           ) : (
-                            <button
-                              className="btn btn-link btn-sm"
-                              onClick={() => {
-                                this.setState({
-                                  editCompanyInfo: true
-                                });
-                              }}
-                            >
-                              Edit
-                            </button>
+                            <NavLink to="/setup-companyInformation">
+                              <button className="btn btn-link btn-sm">
+                                Edit
+                              </button>
+                            </NavLink>
                           )}
                         </div>
                       </div>

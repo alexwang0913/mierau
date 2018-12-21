@@ -21,46 +21,101 @@ namespace project.Controllers
         //    return new string[] { "value1", "value2" };
         //}
 
-        // GET: api/Company/5
-        //[HttpGet("{id}", Name = "Get")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        // POST: api/Company
-        [HttpPost("{id}")]
-        public bool Create(int companyId, [FromBody] Company company)
+        //GET: api/Company/5
+        [HttpGet("{id}")]
+        public Company Get(int id)
         {
-            String commandText = "";
-            SqlParameter[] parameters = {
-                new SqlParameter("@companyId", company.COMPANY_ID),
-                new SqlParameter("@companyName", company.COMPANY_NAME),
-                new SqlParameter("@timeZoneId", company.TIMEZONE_ID),
-                new SqlParameter("@website", company.WEBSITE),
-                new SqlParameter("@emailId", company.EMAIL_ID),
-                new SqlParameter("@phone", company.PHONE),
-                new SqlParameter("@languageId", company.LANGUAGE_ID),
-                new SqlParameter("@themeId", company.THEME_ID),
-                new SqlParameter("@systemName", company.SYSTEM_NAME),
-                new SqlParameter("@systemTitle", company.SYSTEM_TITME)
-            };
+            String commandText = "Select A.*, B.description as timeZoneName, C.languageName, D.description AS countryName From [dbo].[tblCompany] as A Left Join [dbo].[tblTimeZone] as B On A.timeZoneId=B.timeZoneID Left Join [dbo].[tblLanguage] as C On A.languageId=C.languageId LEFT JOIN [dbo].[tblCountry] as D ON A.countryId=D.countryId Where A.companyId=@companyId";
+            SqlParameter parameter = new SqlParameter("@companyId", id);
             
-            if (SqlHelper.ExecuteNonQuery("SELECT * FROM [dbo].[tblCompany] WHERE companyId=@companyId", CommandType.Text, new SqlParameter("@companyId", companyId)) > 0)
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(commandText, CommandType.Text, parameter))
             {
-                commandText = "Update [dbo].[tblCountry] SET companyId=@companyId, companyName=@companyName, timeZoneID=@timeZoneId, webSite=@webSite, emailId=@emailId, phone=@phone, languageId=@languageId, themeId=@themeId, systemName=@systemName, systemTitle=@systemTitle)";
+                if (reader.Read())
+                {
+                    Company company = new Company();
+
+                    company.CompanyId = int.Parse(reader["companyId"].ToString());
+                    company.CompanyName = reader["companyName"].ToString();
+                    company.TimezoneId = int.Parse(reader["timeZoneId"].ToString());
+                    company.Website = reader["website"].ToString();
+                    company.EmailId = int.Parse(reader["emailId"].ToString());
+                    company.Phone = reader["phone"].ToString();
+                    company.LanguageId = int.Parse(reader["languageId"].ToString());
+                    company.ThemeId = int.Parse(reader["themeId"].ToString());
+                    company.SystemName = reader["systemName"].ToString();
+                    company.SystemTitle = reader["systemTitle"].ToString();
+                    company.CountryId = int.Parse(reader["countryId"].ToString());
+
+                    company.TimeZoneName = reader["timeZoneName"].ToString();
+                    company.LanguageName = reader["languageName"].ToString();
+                    company.CountryName = reader["countryName"].ToString();
+
+                    return company;
+                }
             }
-            else
-            {
-                commandText = "INSERT INTO [dbo].[tblCountry] VALUES (@companyId, @companyName, @timeZoneId, @webSite, @emailId, @phone, @languageId, @themeId, @systemName, @systemTitle)";
-            }
+            return null;
+        }
+        [HttpPost("[action]")]
+        public async Task<ActionResult<bool>> UpdateCompanyInformation(Company company)
+        {
+            String commandText = "UPDATE [dbo].[tblCompany] SET [companyName]=@companyName, [systemName]=@systemName, [systemTitle]=@systemTitle, [timeZoneId]=@timeZoneId, [languageId]=@languageId, [countryId]=@countryId WHERE [companyId]=@companyId";
+            SqlParameter[] parameters = {
+                new SqlParameter("@companyId", company.CompanyId),
+                new SqlParameter("@companyName", company.CompanyName),
+                new SqlParameter("@timeZoneId", company.TimezoneId),
+                new SqlParameter("@languageId", company.LanguageId),
+                new SqlParameter("@systemName", company.SystemName),
+                new SqlParameter("@systemTitle", company.SystemTitle),
+                new SqlParameter("@countryId", company.CountryId)
+            };
+
             if (SqlHelper.ExecuteNonQuery(commandText, CommandType.Text, parameters) > 0)
             {
                 return true;
             }
+
             return false;
-            
         }
+
+        // POST: api/Company
+        [HttpPost("{id}")]
+        public async Task<ActionResult<bool>> Create(int companyId, [FromBody] Company company)
+        {
+            String commandText = "";
+            SqlParameter[] parameters = {
+                new SqlParameter("@companyId", company.CompanyId),
+                new SqlParameter("@companyName", company.CompanyName),
+                new SqlParameter("@timeZoneId", company.TimezoneId),
+                new SqlParameter("@website", company.Website),
+                new SqlParameter("@emailId", company.EmailId),
+                new SqlParameter("@phone", company.Phone),
+                new SqlParameter("@languageId", company.LanguageId),
+                new SqlParameter("@themeId", company.ThemeId),
+                new SqlParameter("@systemName", company.SystemName),
+                new SqlParameter("@systemTitle", company.SystemTitle),
+                new SqlParameter("@countryId", company.CountryId)
+            };
+            using (SqlDataReader reader = SqlHelper.ExecuteReader("SELECT * FROM [dbo].[tblCompany] WHERE companyId=@companyId", CommandType.Text, new SqlParameter("@companyId", companyId)))
+            {
+                if (reader.Read())
+                {
+                    commandText = "Update [dbo].[tblCompany] SET companyId=@companyId, companyName=@companyName, timeZoneID=@timeZoneId, webSite=@webSite, emailId=@emailId, phone=@phone, languageId=@languageId, themeId=@themeId, systemName=@systemName, systemTitle=@systemTitle, countryId=@countryId)";
+                }
+                else
+                {
+                    commandText = "INSERT INTO [dbo].[tblCompany] VALUES (@companyId, @companyName, @timeZoneId, @webSite, @emailId, @phone, @languageId, @themeId, @systemName, @systemTitle, @countryId)";
+                }
+            }
+
+            if (SqlHelper.ExecuteNonQuery(commandText, CommandType.Text, parameters) > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        
 
         // PUT: api/Company/5
         [HttpPut("{id}")]
