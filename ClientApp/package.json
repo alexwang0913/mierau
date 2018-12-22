@@ -13,6 +13,7 @@
     "html-to-draftjs": "1.4.0",
     "jquery": "3.3.1",
     "jvectormap": "2.0.4",
+    "lodash-node": "^3.10.2",
     "moment": "^2.17.1",
     "moment-range": "",
     "node-sass": "4.11.0",

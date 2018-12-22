@@ -25,7 +25,17 @@ namespace project.Controllers
         [HttpGet("{id}")]
         public Company Get(int id)
         {
-            String commandText = "Select A.*, B.description as timeZoneName, C.languageName, D.description AS countryName From [dbo].[tblCompany] as A Left Join [dbo].[tblTimeZone] as B On A.timeZoneId=B.timeZoneID Left Join [dbo].[tblLanguage] as C On A.languageId=C.languageId LEFT JOIN [dbo].[tblCountry] as D ON A.countryId=D.countryId Where A.companyId=@companyId";
+            String commandText = "";
+
+            commandText += "SELECT A.*, B.description as timeZoneName, C.languageName, D.description AS countryName, E.tradeGroupIds";
+            
+            commandText += " FROM [dbo].[tblCompany] as A";
+            commandText += " LEFT JOIN [dbo].[tblTimeZone] as B On A.timeZoneId=B.timeZoneID";
+            commandText += " LEFT Join [dbo].[tblLanguage] as C On A.languageId=C.languageId";
+            commandText += " LEFT JOIN [dbo].[tblCountry] as D ON A.countryId=D.countryId";
+            commandText += " LEFT JOIN (SELECT companyId, dbo.GROUP_CONCAT(tradeGroupId, ',') AS tradeGroupIds from [dbo].[tblCompanyTradeGroupRelations] group by companyId) as E ON A.companyId=E.companyId";
+            commandText += " Where A.companyId=@companyId";
+
             SqlParameter parameter = new SqlParameter("@companyId", id);
             
             using (SqlDataReader reader = SqlHelper.ExecuteReader(commandText, CommandType.Text, parameter))
@@ -50,6 +60,14 @@ namespace project.Controllers
                     company.LanguageName = reader["languageName"].ToString();
                     company.CountryName = reader["countryName"].ToString();
 
+                    String[] tradeGroupIds = reader["tradeGroupIds"].ToString().Split(",");
+                    List<TradeGroup> tradeGroups = new List<TradeGroup>();
+                    for (int i = 0; i < tradeGroupIds.Length; i++)
+                    {
+                        tradeGroups.Add(new TradeGroup(int.Parse(tradeGroupIds[i]), ""));
+                    }
+                    company.TradeGroups = tradeGroups;
+
                     return company;
                 }
             }
@@ -71,6 +89,25 @@ namespace project.Controllers
 
             if (SqlHelper.ExecuteNonQuery(commandText, CommandType.Text, parameters) > 0)
             {
+                commandText = "DELETE FROM [dbo].[tblCompanyTradeGroupRelations] WHERE companyId=@companyId";
+                if (SqlHelper.ExecuteNonQuery(commandText, CommandType.Text, new SqlParameter("@companyId", company.CompanyId)) < 1)
+                {
+                    return false;
+                }
+                for (int i = 0; i < company.TradeGroups.Count; i++)
+                {                    
+                    commandText = "INSERT INTO [dbo].[tblCompanyTradeGroupRelations] VALUES (@companyId, @tradeGroupId)";
+                    SqlParameter[] params_1 = {
+                        new SqlParameter("@companyId", company.CompanyId),
+                        new SqlParameter("@tradeGroupId", company.TradeGroups[i].Id)
+                    };
+                    if (SqlHelper.ExecuteNonQuery(commandText, CommandType.Text, params_1) < 1)
+                    {
+                        return false;
+                    }
+
+                }
+
                 return true;
             }
 

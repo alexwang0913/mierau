@@ -37,6 +37,9 @@ import Chatgroups from './Chatbar/Chatgroups';
 import Navmenudropdown from './Navmenudropdown/Navmenudropdown';
 import Navmenugroup from './Navmenudropdown/Navmenugroup';
 
+import TokenInput from './TokenInput';
+var ComboboxOption = require('./TokenInput').Option;
+
 export {
     // CardElements
     CardAuthor,   
@@ -77,4 +80,7 @@ export {
     // dropdown links in navigation side menu
     Navmenudropdown,
     Navmenugroup,
+
+    TokenInput,
+    ComboboxOption
 };

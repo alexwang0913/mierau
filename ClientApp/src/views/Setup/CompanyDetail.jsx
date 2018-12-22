@@ -1,6 +1,6 @@
 import { Row, Col, Input, span, FormGroup } from "reactstrap";
 import React from "react";
-import {} from "components";
+import { } from "components";
 
 import logofull from "assets/img/logo-full.png";
 import { NavLink } from "react-router-dom";
@@ -100,6 +100,7 @@ class CompanyDetail extends React.Component {
       });
     const companyId = cookies.get("user").companyId;
 
+    let tradeGroups = [];
     fetch("api/company/" + companyId)
       .then(response => response.json())
       .then(data => {
@@ -110,7 +111,28 @@ class CompanyDetail extends React.Component {
         self.setState({ country: data.countryName });
         self.setState({ timeZone: data.timeZoneName });
         self.setState({ language: data.languageName });
+        tradeGroups = data.tradeGroups;
+        console.log(tradeGroups);
       });
+    setTimeout(() => {
+      const _self = self;
+      fetch("api/tradeGroup")
+        .then(response => response.json())
+        .then(data => {
+          let _tradeGroup = "";
+          tradeGroups.map((tradeGroup, index) => {
+            data.map(tradeGroup_server => {
+              if (tradeGroup_server.id == tradeGroup.id) {
+                _tradeGroup += tradeGroup_server.name;
+              }
+            })
+            if (index < tradeGroups.length - 1) {
+              _tradeGroup += ",";
+            }
+          });
+          _self.setState({ tradeGroup: _tradeGroup });
+        })
+    }, 100);
   }
   updateState(name, e) {
     this.setState({ [name]: e.target.value });
@@ -168,8 +190,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("companyName", e)}
                             />
                           ) : (
-                            <span>{this.state.companyName}</span>
-                          )}
+                              <span>{this.state.companyName}</span>
+                            )}
                         </div>
                       </div>
 
@@ -199,8 +221,8 @@ class CompanyDetail extends React.Component {
                               </Input>
                             </FormGroup>
                           ) : (
-                             <span>{this.state.country}</span>
-                          )}
+                              <span>{this.state.country}</span>
+                            )}
                         </div>
                       </div>
 
@@ -222,8 +244,8 @@ class CompanyDetail extends React.Component {
                               </Input>
                             </FormGroup>
                           ) : (
-                            <span>{this.state.timeZone}</span>
-                          )}
+                              <span>{this.state.timeZone}</span>
+                            )}
                         </div>
                       </div>
 
@@ -245,8 +267,8 @@ class CompanyDetail extends React.Component {
                               </Input>
                             </FormGroup>
                           ) : (
-                            <span>{this.state.language}</span>
-                          )}
+                              <span>{this.state.language}</span>
+                            )}
                         </div>
                       </div>
 
@@ -262,8 +284,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("systemName", e)}
                             />
                           ) : (
-                            <span>{this.state.systemName}</span>
-                          )}
+                              <span>{this.state.systemName}</span>
+                            )}
                         </div>
                       </div>
 
@@ -279,8 +301,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("systemTitle", e)}
                             />
                           ) : (
-                            <span>{this.state.systemTitle}</span>
-                          )}
+                              <span>{this.state.systemTitle}</span>
+                            )}
                         </div>
                       </div>
 
@@ -304,8 +326,8 @@ class CompanyDetail extends React.Component {
                               </Input>
                             </FormGroup>
                           ) : (
-                            <span>{this.state.tradeGroup}</span>
-                          )}
+                              <span>{this.state.tradeGroup}</span>
+                            )}
                         </div>
                       </div>
 
@@ -327,12 +349,12 @@ class CompanyDetail extends React.Component {
                               </button>
                             </div>
                           ) : (
-                            <NavLink to="/setup-companyInformation">
-                              <button className="btn btn-link btn-sm">
-                                Edit
+                              <NavLink to="/setup-companyInformation">
+                                <button className="btn btn-link btn-sm">
+                                  Edit
                               </button>
-                            </NavLink>
-                          )}
+                              </NavLink>
+                            )}
                         </div>
                       </div>
 
@@ -427,13 +449,13 @@ class CompanyDetail extends React.Component {
                               }
                             />
                           ) : (
-                            // <span>{this.state.billingAddress}</span>
-                            <div>
-                              <span>1233 12 st Unit23</span>
-                              <br />
-                              <span>Abbotsford, BC V5Y 1H4</span>
-                            </div>
-                          )}
+                              // <span>{this.state.billingAddress}</span>
+                              <div>
+                                <span>1233 12 st Unit23</span>
+                                <br />
+                                <span>Abbotsford, BC V5Y 1H4</span>
+                              </div>
+                            )}
                         </div>
                       </div>
 
@@ -451,8 +473,8 @@ class CompanyDetail extends React.Component {
                               }
                             />
                           ) : (
-                            <span>{this.state.legalAddress}</span>
-                          )}
+                              <span>{this.state.legalAddress}</span>
+                            )}
                         </div>
                       </div>
 
@@ -470,8 +492,8 @@ class CompanyDetail extends React.Component {
                               }
                             />
                           ) : (
-                            <span>{this.state.officeAddress}</span>
-                          )}
+                              <span>{this.state.officeAddress}</span>
+                            )}
                         </div>
                       </div>
 
@@ -489,8 +511,8 @@ class CompanyDetail extends React.Component {
                               }
                             />
                           ) : (
-                            <span>{this.state.shippingAddress}</span>
-                          )}
+                              <span>{this.state.shippingAddress}</span>
+                            )}
                         </div>
                       </div>
 
@@ -525,8 +547,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("apAcctid", e)}
                             />
                           ) : (
-                            <span>{this.state.apAcctid}</span>
-                          )}
+                              <span>{this.state.apAcctid}</span>
+                            )}
                         </div>
                       </div>
 
@@ -542,8 +564,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("arAcctId", e)}
                             />
                           ) : (
-                            <span>{this.state.arAcctId}</span>
-                          )}
+                              <span>{this.state.arAcctId}</span>
+                            )}
                         </div>
                       </div>
 
@@ -602,8 +624,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("legalName", e)}
                             />
                           ) : (
-                            <span>{this.state.legalName}</span>
-                          )}
+                              <span>{this.state.legalName}</span>
+                            )}
                         </div>
                       </div>
 
@@ -621,8 +643,8 @@ class CompanyDetail extends React.Component {
                               }
                             />
                           ) : (
-                            <span>{this.state.taxRegistration}</span>
-                          )}
+                              <span>{this.state.taxRegistration}</span>
+                            )}
                         </div>
                       </div>
 
@@ -684,8 +706,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("phone", e)}
                             />
                           ) : (
-                            <span>{this.state.phone}</span>
-                          )}
+                              <span>{this.state.phone}</span>
+                            )}
                         </div>
                       </div>
 
@@ -701,8 +723,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("phone2", e)}
                             />
                           ) : (
-                            <span>{this.state.phone2}</span>
-                          )}
+                              <span>{this.state.phone2}</span>
+                            )}
                         </div>
                       </div>
 
@@ -716,8 +738,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("fax", e)}
                             />
                           ) : (
-                            <span>{this.state.fax}</span>
-                          )}
+                              <span>{this.state.fax}</span>
+                            )}
                         </div>
                       </div>
 
@@ -733,8 +755,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("website", e)}
                             />
                           ) : (
-                            <span>{this.state.website}</span>
-                          )}
+                              <span>{this.state.website}</span>
+                            )}
                         </div>
                       </div>
 
@@ -750,8 +772,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("twitter", e)}
                             />
                           ) : (
-                            <span>{this.state.twitter}</span>
-                          )}
+                              <span>{this.state.twitter}</span>
+                            )}
                         </div>
                       </div>
 
@@ -767,8 +789,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("faceBook", e)}
                             />
                           ) : (
-                            <span>{this.state.faceBook}</span>
-                          )}
+                              <span>{this.state.faceBook}</span>
+                            )}
                         </div>
                       </div>
 
@@ -784,8 +806,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("linkedId", e)}
                             />
                           ) : (
-                            <span>{this.state.linkedId}</span>
-                          )}
+                              <span>{this.state.linkedId}</span>
+                            )}
                         </div>
                       </div>
 
@@ -803,8 +825,8 @@ class CompanyDetail extends React.Component {
                               }
                             />
                           ) : (
-                            <span>{this.state.companyEmail}</span>
-                          )}
+                              <span>{this.state.companyEmail}</span>
+                            )}
                         </div>
                       </div>
 
@@ -856,8 +878,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("firstName", e)}
                             />
                           ) : (
-                            <span>{this.state.firstName}</span>
-                          )}
+                              <span>{this.state.firstName}</span>
+                            )}
                         </div>
                       </div>
 
@@ -873,8 +895,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("lastName", e)}
                             />
                           ) : (
-                            <span>{this.state.lastName}</span>
-                          )}
+                              <span>{this.state.lastName}</span>
+                            )}
                         </div>
                       </div>
 
@@ -890,8 +912,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("title", e)}
                             />
                           ) : (
-                            <span>{this.state.title}</span>
-                          )}
+                              <span>{this.state.title}</span>
+                            )}
                         </div>
                       </div>
 
@@ -907,8 +929,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("directPhone", e)}
                             />
                           ) : (
-                            <span>{this.state.directPhone}</span>
-                          )}
+                              <span>{this.state.directPhone}</span>
+                            )}
                         </div>
                       </div>
 
@@ -924,8 +946,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("mobile", e)}
                             />
                           ) : (
-                            <span>{this.state.mobile}</span>
-                          )}
+                              <span>{this.state.mobile}</span>
+                            )}
                         </div>
                       </div>
 
@@ -941,8 +963,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("directFax", e)}
                             />
                           ) : (
-                            <span>{this.state.directFax}</span>
-                          )}
+                              <span>{this.state.directFax}</span>
+                            )}
                         </div>
                       </div>
 
@@ -958,8 +980,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("email", e)}
                             />
                           ) : (
-                            <span>{this.state.email}</span>
-                          )}
+                              <span>{this.state.email}</span>
+                            )}
                         </div>
                       </div>
 
@@ -975,8 +997,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("skypeId", e)}
                             />
                           ) : (
-                            <span>{this.state.skypeId}</span>
-                          )}
+                              <span>{this.state.skypeId}</span>
+                            )}
                         </div>
                       </div>
 
@@ -1011,8 +1033,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("wcbNumber", e)}
                             />
                           ) : (
-                            <span>{this.state.wcbNumber}</span>
-                          )}
+                              <span>{this.state.wcbNumber}</span>
+                            )}
                         </div>
                       </div>
 
@@ -1030,8 +1052,8 @@ class CompanyDetail extends React.Component {
                               }
                             />
                           ) : (
-                            <span>{this.state.wcbPaidToDate}</span>
-                          )}
+                              <span>{this.state.wcbPaidToDate}</span>
+                            )}
                         </div>
                       </div>
 
@@ -1066,8 +1088,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("gstNumber", e)}
                             />
                           ) : (
-                            <span>{this.state.gstNumber}</span>
-                          )}
+                              <span>{this.state.gstNumber}</span>
+                            )}
                         </div>
                       </div>
 
@@ -1083,8 +1105,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("pstNumber", e)}
                             />
                           ) : (
-                            <span>{this.state.pstNumber}</span>
-                          )}
+                              <span>{this.state.pstNumber}</span>
+                            )}
                         </div>
                       </div>
 
@@ -1117,8 +1139,8 @@ class CompanyDetail extends React.Component {
                               onChange={e => this.updateState("note", e)}
                             />
                           ) : (
-                            <span>{this.state.note}</span>
-                          )}
+                              <span>{this.state.note}</span>
+                            )}
                         </div>
                       </div>
 

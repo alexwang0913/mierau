@@ -18,6 +18,7 @@ namespace project.Models
         public String SystemName { get; set; }
         public String SystemTitle { get; set; }
         public int CountryId { get; set; }
+        public List<TradeGroup> TradeGroups { get; set; }
 
         public String TimeZoneName { get; set; }
         public String LanguageName { get; set; }

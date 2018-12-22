@@ -1,12 +1,22 @@
 import { Row, Col, Input, span, FormGroup } from "reactstrap";
 import React from "react";
-import {} from "components";
+import { TokenInput, ComboboxOption } from "components";
 
-import logofull from "assets/img/logo-full.png";
 import { NavLink } from "react-router-dom";
 
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
+
+var without = require('lodash-node/modern/array/without')
+var uniq = require('lodash-node/modern/array/uniq')
+// var names = ["A", "B", "C", "Apple", "Ant", "Army"].map(function(name, index) {
+//   return {
+//     id: index,
+//     name: name
+//   }
+// });
+var names = [];
+// var ComboboxOption = TokenInput.Option;
 
 class CompanyInformation extends React.Component {
   constructor() {
@@ -21,7 +31,12 @@ class CompanyInformation extends React.Component {
 
       countries: [],
       timeZones: [],
-      languages: []
+      languages: [],
+
+      input: '',
+      loading: false,
+      selected: [],
+      options: []
     };
 
     this.updateCompanyInformation = this.updateCompanyInformation.bind(this);
@@ -30,7 +45,8 @@ class CompanyInformation extends React.Component {
   componentDidMount() {
     const self = this;
     const companyId = cookies.get("user").companyId;
-    
+    let tradeGroups = [];
+
     fetch("api/Company/GetCountries")
       .then(response => response.json())
       .then(data => {
@@ -47,6 +63,8 @@ class CompanyInformation extends React.Component {
         self.setState({ country: data.countryId });
         self.setState({ timeZone: data.timezoneId });
         self.setState({ language: data.languageId });
+        // self.setState({ selected: data.tradeGroups});
+        tradeGroups = data.tradeGroups;
       });
 
     fetch("api/TimeZone")
@@ -60,6 +78,30 @@ class CompanyInformation extends React.Component {
       .then(data => {
         self.setState({ languages: data });
       });
+
+    fetch("api/TradeGroup")
+      .then(response => response.json())
+      .then(data => {
+        self.setState({options: data});
+        names = data;
+      })
+
+    setTimeout(() => {
+      const _self = self;
+      fetch("api/tradeGroup")
+        .then(response => response.json())
+        .then(data => {
+          let _tradeGroups = [];
+          tradeGroups.map((tradeGroup, index) => {
+            data.map(tradeGroup_server => {
+              if (tradeGroup_server.id == tradeGroup.id) {
+                _tradeGroups.push(tradeGroup_server);
+              }
+            });
+          });
+          _self.setState({ selected: _tradeGroups });
+        })
+    }, 100);
   }
   updateState(name, e) {
     this.setState({ [name]: e.target.value });
@@ -72,7 +114,8 @@ class CompanyInformation extends React.Component {
       systemName: this.state.systemName,
       systemTitle: this.state.systemTitle,
       languageId: this.state.language,
-      companyId: cookies.get("user").companyId
+      companyId: cookies.get("user").companyId,
+      tradeGroups: this.state.selected
     };
 
     fetch("api/company/UpdateCompanyInformation", {
@@ -87,7 +130,78 @@ class CompanyInformation extends React.Component {
         console.log(data);
       });
   }
+  // start TokenInput
+  handleChange = (value) => {
+    this.setState({
+      selected: value
+    })
+  };
+
+  handleRemove = (value) => {
+    var selectedOptions = uniq(without(this.state.selected, value))
+    this.handleChange(selectedOptions)
+  };
+
+  handleSelect = (value, combobox) => {
+    if (typeof value === 'string') {
+      value = { id: value, name: value };
+    }
+
+    var selected = uniq(this.state.selected.concat([value]))
+    this.setState({
+      selected: selected,
+      selectedToken: null
+    })
+
+    this.handleChange(selected)
+  };
+
+  handleInput = (userInput) => {
+    this.setState({
+      input: userInput,
+      loading: true,
+      options: []
+    })
+    setTimeout(function () {
+      this.filterTags(this.state.input)
+      this.setState({
+        loading: false
+      })
+    }.bind(this), 500)
+  };
+
+  filterTags = (userInput) => {
+    if (userInput === '')
+      return this.setState({ options: [] });
+    var filter = new RegExp('^' + userInput, 'i');
+    var filteredNames = names.filter(function (state) {
+      return filter.test(state.name); // || filter.test(state.id);
+    }).filter(function (state) {
+      return this.state.selected
+        .map(function (value) { return value.name })
+        .indexOf(state.name) === -1
+    }.bind(this))
+    this.setState({
+      options: filteredNames
+    });
+  };
+
+  renderComboboxOptions = () => {
+    return this.state.options.map(function(name) {
+      return (
+        <ComboboxOption
+          key={name.id}
+          value={name}
+          isFocusable={name.name.length > 1}
+        >{name.name}</ComboboxOption>
+      );
+    });
+  };
+  // end TokenInput
   render() {
+    var options = this.state.options.length ?
+      this.renderComboboxOptions() : [];
+    
     return (
       <div>
         <div className="content">
@@ -208,6 +322,24 @@ class CompanyInformation extends React.Component {
                         type="text"
                         value={this.state.systemTitle}
                         onChange={e => this.updateState("systemTitle", e)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="row mt-2">
+                    <div className="col-md-3 col-4 text-right">
+                      <span>Trade Group:</span>
+                    </div>
+                    <div className="col-md-9 col-8">
+                      <TokenInput
+                        isLoading={this.state.loading}
+                        menuContent={options}
+                        onChange={this.handleChange}
+                        onInput={this.handleInput}
+                        onSelect={this.handleSelect}
+                        onRemove={this.handleRemove}
+                        selected={this.state.selected}
+                        placeholder='Enter tradeGroups here'
                       />
                     </div>
                   </div>
